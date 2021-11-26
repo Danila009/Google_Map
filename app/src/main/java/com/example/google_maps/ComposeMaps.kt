@@ -34,10 +34,11 @@ class ComposeMaps : ComponentActivity() {
                         MyMap(
                             modifier = Modifier
                                 .padding(12.dp)
-                                .size(300.dp)
                                 .clip(RoundedCornerShape(24.dp))
+                                .fillMaxWidth()
+                                .fillMaxHeight()
+                                .padding()
                         ){
-
                         }
                     }
                 }
@@ -58,12 +59,10 @@ fun MyMap(
     val lifecycle= LocalLifecycleOwner.current.lifecycle
 
     lifecycle.addObserver(RememberMap(mapView))
-    
     AndroidView(factory = {
                           mapView.apply {
                               mapView.getMapAsync{ googleMap->
                                   onReady(googleMap)
-
                               }
                           }
     },modifier = modifier)
@@ -72,7 +71,6 @@ fun MyMap(
 @SuppressLint("ComposableNaming")
 @Composable
 fun RememberMap(map:MapView):LifecycleEventObserver{
-
 
     return remember {
         LifecycleEventObserver { source, event ->

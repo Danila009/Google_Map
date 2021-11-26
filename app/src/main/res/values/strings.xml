@@ -2,4 +2,9 @@
     <string name="app_name">Google_Maps</string>
     <string name="title_activity_compose_maps">ComposeMaps</string>
     <string name="title_activity_xml_googlemaps">XML_GOOGLEMAPS</string>
+    <string name="title_activity_test_maps_google">TestMapsGoogle</string>
+    <string name="title_activity_recucler_view">RecuclerView</string>
+    <string name="title_activity_gradient">Gradient</string>
+    <string name="title_activity_search_view">SearchView</string>
+    <string name="title_activity_intent_button_navigation_view">intentButtonNavigationView</string>
 </resources>

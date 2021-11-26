@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.google_maps">
 
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
@@ -20,12 +19,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Google_Maps">
-
+        <activity
+            android:name=".ButtonNavigationView"
+            android:exported="false"
+            android:label="@string/title_activity_intent_button_navigation_view"
+            android:theme="@style/Theme.Google_Maps.NoActionBar" />
+        <activity
+            android:name=".SearchView"
+            android:exported="false"
+            android:label="@string/title_activity_search_view"
+            android:theme="@style/Theme.Google_Maps.NoActionBar" />
+        <activity
+            android:name=".Gradient"
+            android:exported="false"
+            android:label="@string/title_activity_gradient"
+            android:theme="@style/Theme.Google_Maps.NoActionBar" />
+        <activity
+            android:name=".RecuclerView"
+            android:exported="false"
+            android:label="@string/title_activity_recucler_view"
+            android:theme="@style/Theme.Google_Maps.NoActionBar" />
+        <activity
+            android:name=".TestMapsGoogle"
+            android:exported="false"
+            android:label="@string/title_activity_test_maps_google"
+            android:theme="@style/Theme.Google_Maps.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
 
         <activity
             android:name=".XMLMaps"
@@ -47,4 +69,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
