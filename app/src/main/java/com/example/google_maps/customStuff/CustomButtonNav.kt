@@ -1,5 +1,7 @@
 package com.example.google_maps.customStuff
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
@@ -40,7 +42,6 @@ fun CustomBottomNavigation(
             CustomBottomNavigationItem(item = item, isSelected = item.id==currentScreenId) {
                 onItemSelected(item)
             }
-
         }
 
     }

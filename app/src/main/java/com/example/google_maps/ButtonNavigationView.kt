@@ -1,5 +1,6 @@
 package com.example.google_maps
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
@@ -8,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.toArgb
 import com.example.google_maps.customStuff.CustomBottomNavigation
@@ -33,7 +35,19 @@ class ButtonNavigationView : ComponentActivity() {
                         bottomBar = {
                             CustomBottomNavigation(currentScreenId = currentScreen.value.id) {
                                 currentScreen.value=it
-                                Toast.makeText(this,it.toString(), Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this,it.id, Toast.LENGTH_SHORT).show()
+                                when(it.id){
+                                    "search"->{
+                                        val intentSearch = Intent(this, SearchView::class.java)
+                                        startActivity(intentSearch)
+                                    }
+                                    "profile"->{
+
+                                    }
+                                    "settings"->{
+
+                                    }
+                                }
                             }
                         }
                     ) {

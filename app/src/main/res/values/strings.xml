@@ -7,4 +7,6 @@
     <string name="title_activity_gradient">Gradient</string>
     <string name="title_activity_search_view">SearchView</string>
     <string name="title_activity_intent_button_navigation_view">intentButtonNavigationView</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="title_activity_ad_mob_compose">AdMobCompose</string>
 </resources>

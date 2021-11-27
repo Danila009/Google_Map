@@ -20,6 +20,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Google_Maps">
         <activity
+            android:name=".AdMobCompose"
+            android:exported="false"
+            android:label="@string/title_activity_ad_mob_compose"
+            android:theme="@style/Theme.Google_Maps.NoActionBar" />
+        <activity
+            android:name=".Admob"
+            android:exported="false" />
+        <activity
             android:name=".ButtonNavigationView"
             android:exported="false"
             android:label="@string/title_activity_intent_button_navigation_view"
@@ -39,15 +47,13 @@
             android:exported="false"
             android:label="@string/title_activity_recucler_view"
             android:theme="@style/Theme.Google_Maps.NoActionBar" />
-        <activity
-            android:name=".TestMapsGoogle"
-            android:exported="false"
-            android:label="@string/title_activity_test_maps_google"
-            android:theme="@style/Theme.Google_Maps.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
 
         <activity
             android:name=".XMLMaps"

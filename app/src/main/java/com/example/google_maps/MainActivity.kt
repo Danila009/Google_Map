@@ -24,6 +24,7 @@ class MainActivity : ComponentActivity() {
         val intentGradient = Intent(this, Gradient::class.java)
         val intentSearch = Intent(this, SearchView::class.java)
         val intentButtonNavigationView = Intent(this, ButtonNavigationView::class.java)
+        val intentAdmob = Intent(this, AdMobCompose::class.java)
 
         setContent {
             Google_MapsTheme {
@@ -36,6 +37,7 @@ class MainActivity : ComponentActivity() {
                             ComposeButton(text = "SearchView", intent = intentSearch)
                             ComposeButton(text = "ButtonNavigationView", intent = intentButtonNavigationView)
                             ComposeButton(text = "NavigationView", intent = intentMaps)
+                            ComposeButton(text = "AdMob", intent = intentAdmob)
                         }
                     }
                 }
