@@ -27,6 +27,18 @@ private val LightColorPalette = lightColors(
     */
 )
 
+
+@Composable
+fun CustomTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    MaterialTheme(
+        colors = if (darkTheme) DarkColors else LightColors,
+        content = content
+    )
+}
+
 @Composable
 fun Google_MapsTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
