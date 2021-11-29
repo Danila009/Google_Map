@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,11 +38,12 @@ class AnimatedAct : ComponentActivity() {
         setContent {
             Column {
                 BikeScreen()
+                Animated()
             }
         }
     }
 }
-
+@Preview
 @ExperimentalAnimationApi
 @Composable
 fun Animated() {
@@ -55,13 +57,10 @@ fun Animated() {
     AnimatedVisibility(
         visible = visible.value,
         enter = slideInVertically(
-            // Slide in from 40 dp from the top.
             initialOffsetY = { with(density) { -40.dp.roundToPx() } }
         ) + expandVertically(
-            // Expand from the top.
             expandFrom = Alignment.Top
         ) + fadeIn(
-            // Fade in with the initial alpha of 0.3f.
             initialAlpha = 0.3f
         ),
         exit = slideOutVertically() + shrinkVertically() + fadeOut()

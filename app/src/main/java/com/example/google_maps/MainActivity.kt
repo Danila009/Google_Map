@@ -9,6 +9,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,6 +18,7 @@ import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -40,6 +42,7 @@ class MainActivity : ComponentActivity() {
         val intentAnimated = Intent(this, AnimatedAct::class.java)
         val intentPager = Intent(this, PagerAct::class.java)
         val intentAuthentication  = Intent(this, Authentication::class.java)
+        val intentVideo  = Intent(this, VideoAct::class.java)
 
         setContent {
             val them = remember { mutableStateOf(true)}
@@ -49,7 +52,7 @@ class MainActivity : ComponentActivity() {
                         Surface(color = colors.background) {
 
                             Scaffold(bottomBar = {
-                                Row {
+                                Row (modifier = Modifier.background(Color.Black)){
                                     when(them.value){
                                         true->{
                                             Text("Dark",Modifier.padding(all = 5.dp))
@@ -73,18 +76,18 @@ class MainActivity : ComponentActivity() {
                                     item{
                                         Column {
 
-
                                             ComposeButton("GoogleMap",intentMaps)
                                             ComposeButton(text = "RecuclerView", intent = intentRecuclerView)
                                             ComposeButton(text = "Gradient", intent = intentGradient)
                                             ComposeButton(text = "SearchView", intent = intentSearch)
                                             ComposeButton(text = "ButtonNavigationView", intent = intentButtonNavigationView)
-                                            ComposeButton(text = "NavigationView", intent = intentMaps)
+                                            ComposeButton(text = "NavigationDrawer", intent = intentMaps)
                                             ComposeButton(text = "AdMob", intent = intentAdmob)
                                             ComposeButton(text = "Tab", intent = intentTab)
                                             ComposeButton(text = "Animated", intent = intentAnimated)
                                             ComposeButton(text = "Pager", intent = intentPager)
                                             ComposeButton(text = "Authentication", intent = intentAuthentication)
+                                            ComposeButton(text = "Video", intent = intentVideo)
 
                                             if (showDialog.value) {
                                                 AlertDialog(onDismissRequest = { showDialog.value = false },title = {

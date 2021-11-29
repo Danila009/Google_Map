@@ -20,6 +20,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Google_Maps">
         <activity
+            android:name=".VideoAct"
+            android:exported="true"
+            android:label="@string/title_activity_video"
+            android:theme="@style/Theme.Google_Maps.NoActionBar" />
+        <activity
             android:name=".Authentication"
             android:exported="true"
             android:label="@string/title_activity_authentication"
