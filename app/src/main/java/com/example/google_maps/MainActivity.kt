@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -15,6 +16,7 @@ import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -23,7 +25,9 @@ import com.example.google_maps.ui.theme.DarkColors
 import com.example.google_maps.ui.theme.Google_MapsTheme
 import com.example.google_maps.ui.theme.LightColors
 
+@ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val intentMaps = Intent(this, ComposeMaps::class.java)
@@ -32,11 +36,14 @@ class MainActivity : ComponentActivity() {
         val intentSearch = Intent(this, SearchView::class.java)
         val intentButtonNavigationView = Intent(this, ButtonNavigationView::class.java)
         val intentAdmob = Intent(this, AdMobCompose::class.java)
+        val intentTab = Intent(this, TabAct::class.java)
+        val intentAnimated = Intent(this, AnimatedAct::class.java)
+        val intentPager = Intent(this, PagerAct::class.java)
+        val intentAuthentication  = Intent(this, Authentication::class.java)
 
         setContent {
             val them = remember { mutableStateOf(true)}
-
-
+            val showDialog = remember { mutableStateOf(false)}
 
                 CustomTheme(them.value){
                         Surface(color = colors.background) {
@@ -65,6 +72,8 @@ class MainActivity : ComponentActivity() {
                                 LazyColumn{
                                     item{
                                         Column {
+
+
                                             ComposeButton("GoogleMap",intentMaps)
                                             ComposeButton(text = "RecuclerView", intent = intentRecuclerView)
                                             ComposeButton(text = "Gradient", intent = intentGradient)
@@ -72,6 +81,31 @@ class MainActivity : ComponentActivity() {
                                             ComposeButton(text = "ButtonNavigationView", intent = intentButtonNavigationView)
                                             ComposeButton(text = "NavigationView", intent = intentMaps)
                                             ComposeButton(text = "AdMob", intent = intentAdmob)
+                                            ComposeButton(text = "Tab", intent = intentTab)
+                                            ComposeButton(text = "Animated", intent = intentAnimated)
+                                            ComposeButton(text = "Pager", intent = intentPager)
+                                            ComposeButton(text = "Authentication", intent = intentAuthentication)
+
+                                            if (showDialog.value) {
+                                                AlertDialog(onDismissRequest = { showDialog.value = false },title = {
+                                                    Text(text = "Title")
+                                                },text = {
+                                                    Text(text = "Text")
+                                                },confirmButton = {
+                                                    Button(onClick = {
+                                                        showDialog.value = false
+                                                    }) {
+                                                        Text(text = "Close")
+                                                    }
+                                                })
+                                            }
+                                            Button(onClick = {
+                                                showDialog.value = true
+                                            },modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(top = 13.dp)) {
+                                                Text(text = "AlertDialog")
+                                            }
                                         }
                                     }
                                 }

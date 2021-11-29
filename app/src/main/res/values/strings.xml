@@ -9,4 +9,9 @@
     <string name="title_activity_intent_button_navigation_view">intentButtonNavigationView</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544~3347511713</string>
     <string name="title_activity_ad_mob_compose">AdMobCompose</string>
+    <string name="title_activity_tab">TabAct</string>
+    <string name="title_activity_animated">AnimatedAct</string>
+    <string name="title_activity_pager">PagerAct</string>
+    <string name="title_activity_lazy_vertical_grid">LazyVerticalGrid</string>
+    <string name="title_activity_authentication">Authentication</string>
 </resources>

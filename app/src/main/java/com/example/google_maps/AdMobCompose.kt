@@ -2,6 +2,7 @@ package com.example.google_maps
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import androidx.activity.ComponentActivity
@@ -18,23 +19,41 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.google_maps.ui.theme.Google_MapsTheme
 import com.google.android.gms.ads.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
 
 class AdMobCompose : ComponentActivity() {
 
+    private var mInterstitialAd: InterstitialAd? = null
+    private final var TAG = "MainActivityTVFL"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             Google_MapsTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
+
+                    val adRequest = AdRequest.Builder().build()
+
+                    InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
+                        override fun onAdFailedToLoad(adError: LoadAdError) {
+                            Log.d(TAG, adError.message)
+                            mInterstitialAd = null
+                            mInterstitialAd?.show(this@AdMobCompose)
+                        }
+
+                        override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                            Log.d(TAG, "Ad was loaded.")
+                            mInterstitialAd = interstitialAd
+                            mInterstitialAd?.show(this@AdMobCompose)
+                        }
+                    })
                     AdvertView()
                 }
             }
         }
     }
-
 }
 
 @SuppressLint("ComposableNaming")

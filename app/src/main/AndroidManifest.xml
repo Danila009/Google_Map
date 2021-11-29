@@ -20,6 +20,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Google_Maps">
         <activity
+            android:name=".Authentication"
+            android:exported="true"
+            android:label="@string/title_activity_authentication"
+            android:theme="@style/Theme.Google_Maps.NoActionBar" />
+        <activity
+            android:name=".LazyVerticalGrid"
+            android:exported="true"
+            android:label="@string/title_activity_lazy_vertical_grid"
+            android:theme="@style/Theme.Google_Maps.NoActionBar" />
+        <activity
+            android:name=".PagerAct"
+            android:exported="true"
+            android:label="@string/title_activity_pager"
+            android:theme="@style/Theme.Google_Maps.NoActionBar" />
+        <activity
+            android:name=".AnimatedAct"
+            android:exported="true"
+            android:label="@string/title_activity_animated"
+            android:theme="@style/Theme.Google_Maps.NoActionBar" />
+        <activity
+            android:name=".TabAct"
+            android:exported="true"
+            android:label="@string/title_activity_tab"
+            android:theme="@style/Theme.Google_Maps.NoActionBar" />
+        <activity
             android:name=".AdMobCompose"
             android:exported="false"
             android:label="@string/title_activity_ad_mob_compose"
