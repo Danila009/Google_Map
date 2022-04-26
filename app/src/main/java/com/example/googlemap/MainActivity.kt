@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.googlemap.data.RetrofitInst
+import com.example.googlemap.data.entities.Directions
 import com.example.googlemap.data.entities.MarkerInfo
 import com.example.googlemap.data.entities.Search
 import com.example.googlemap.style.MapStyle
@@ -42,45 +43,24 @@ import kotlinx.coroutines.launch
 @ExperimentalMaterialApi
 class MainActivity : ComponentActivity() {
 
-    @SuppressLint("MissingPermission")
-    private fun getGPS(): DoubleArray? {
-        val lm = getSystemService(LOCATION_SERVICE) as LocationManager
-        val providers = lm.getProviders(true)
-        var l: Location? = null
-        for (i in providers.indices.reversed()) {
-            l = lm.getLastKnownLocation(providers[i])
-            if (l != null) break
-        }
-        val gps = DoubleArray(2)
-        if (l != null) {
-            gps[0] = l.latitude
-            gps[1] = l.longitude
-            Log.d("GPSGovno", l.latitude.toString())
-            Log.d("GPSGovno", l.longitude.toString())
-        }
-        return gps
-    }
-
-
     private lateinit var mainViewModel: MainViewModel
-    private var locationManager:LocationManager? = null
-    private var locationNetwork:Location? = null
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.d("GPSGovno", getGPS().toString())
-
         val api = RetrofitInst.api
-        val mainViewModelFactory = MainViewModelFactory(api = api)
+        val apiOpenRoute = RetrofitInst.apiOpenRoute
+        val mainViewModelFactory = MainViewModelFactory(api = api, apiOpenRoute = apiOpenRoute)
         mainViewModel = ViewModelProvider(this, mainViewModelFactory).get(MainViewModel::class.java)
 
         setContent {
             var search by remember { mutableStateOf("") }
+            var end by remember { mutableStateOf("") }
             var style by remember { mutableStateOf(false) }
             var searchResult by remember { mutableStateOf(listOf<Search>()) }
             var markerInfo by remember { mutableStateOf(MarkerInfo()) }
+            var direction by remember { mutableStateOf(Directions()) }
             val backdropState = rememberBackdropScaffoldState(initialValue = BackdropValue.Revealed)
             var latLngClick:LatLng? by remember { mutableStateOf(null) }
             val permission = rememberPermissionState(permission = Manifest.permission.ACCESS_FINE_LOCATION)
@@ -107,6 +87,12 @@ class MainActivity : ComponentActivity() {
             lifecycleScope.launch {
                 mainViewModel.responseMarkerInfo.collect {
                     markerInfo = it
+                }
+            }
+
+            lifecycleScope.launch {
+                mainViewModel.responseDirection.collect {
+                    direction = it
                 }
             }
 
@@ -169,9 +155,19 @@ class MainActivity : ComponentActivity() {
                                         }catch (e:Exception){
                                             emptyList()
                                         }
-
+                                    }
+                                    direction.features.forEach {
+                                        val coordinates = remember{ mutableListOf<LatLng>() }
+                                        it.geometry.coordinates.forEach {  coordinate ->
+                                            coordinates.add(
+                                                LatLng(coordinate[1], coordinate[0])
+                                            )
+                                            Log.e("Response", coordinate.toString())
+                                        }
+                                        Log.e("Response", coordinates.toString())
                                         Polygon(
-                                            points = positionPolygon
+                                            points = coordinates,
+                                            strokeColor = Color.Red
                                         )
                                     }
                                 }
@@ -197,12 +193,48 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         )
+
+                        OutlinedTextField(
+                            value = end,
+                            onValueChange = { end = it },
+                            modifier = Modifier.padding(5.dp),
+                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Go),
+                            keyboardActions = KeyboardActions(
+                                onGo = {
+                                    latLngClick?.let {
+                                        mainViewModel.getDirections(
+                                            start = getGPS(),
+                                            end = "${it.longitude},${it.latitude}"
+                                        )
+                                    }
+                                }
+                            )
+                        )
+
                         OutlinedButton(onClick = { style = !style }) {
                             Text(text = "Style")
                         }
+
                     }
                 }
             )
         }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getGPS(): String {
+        val lm = getSystemService(LOCATION_SERVICE) as LocationManager
+        val providers = lm.getProviders(true)
+        var l: Location? = null
+        for (i in providers.indices.reversed()) {
+            l = lm.getLastKnownLocation(providers[i])
+            if (l != null) break
+        }
+        val gps = DoubleArray(2)
+        if (l != null) {
+            gps[0] = l.latitude
+            gps[1] = l.longitude
+        }
+        return "${gps[1]},${gps[0]}"
     }
 }

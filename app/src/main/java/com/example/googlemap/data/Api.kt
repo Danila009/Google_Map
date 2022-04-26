@@ -23,4 +23,6 @@ interface Api {
         @Query("zoom") zoom:Int = 18,
         @Query("addressdetails") addressdetails:Int = 1
     ):Response<MarkerInfo>
+
+    
 }
